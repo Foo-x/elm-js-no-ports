@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="elm.js"></script>
+    <title>Elm App</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        customElements.define(
+            "elm-node",
+            class extends HTMLElement {
+                constructor() {
+                    super();
+                }
+
+                set elmAttr(name) {
+                    if (!name)
+                        return;
+                    const reply = `Hello ${name} !!`;
+                    const event = new CustomEvent("elm-event", {
+                        detail: reply
+                    });
+                    document.getElementById("elm-node").dispatchEvent(event);
+                }
+            }
+        );
+        var app = Elm.Main.init({
+            node: document.getElementById("root")
+        });
+    </script>
+</body>
+
+</html>
